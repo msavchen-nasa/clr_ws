@@ -40,12 +40,12 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
     # If using an nvidia driver uncomment these lines
     # runtime: nvidia
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - capabilities: [gpu]
-    #           count: all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+              count: all
     volumes:
       # If they are present, mount DDS configurations from the host machine into the container.
       # If not, fallback to the default localhost configurations for both fastrtps and cyclonedds.
