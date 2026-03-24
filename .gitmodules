@@ -2,6 +2,11 @@
 	path = src/chonkur_l_raile
 	url = https://github.com/NASA-JSC-Robotics/chonkur_l_raile.git
 	branch = humble-devel
+[submodule "src/clr_sim_demos"]
+	path = src/clr_sim_demos
+	url = https://github.com/NASA-JSC-Robotics/clr_sim_demos.git
+	branch = humble-devel
+# External Packages
 [submodule "src/dextivr_hande"]
 	path = src/external/dextivr_hande
 	url = https://github.com/NASA-JSC-Robotics/dextivr_hande.git
@@ -18,14 +23,14 @@
 	path = src/external/serial
 	url = https://github.com/tylerjw/serial.git
 	branch = ros2
-[submodule "src/vention_rail"]
-	path = src/external/vention_rail
-	url = https://github.com/NASA-JSC-Robotics/vention_rail.git
-	branch = humble-devel
 [submodule "src/trac_ik"]
 	path = src/external/trac_ik
 	url = https://bitbucket.org/traclabs/trac_ik.git
 	branch = 2.0.1
+[submodule "src/vention_rail"]
+	path = src/external/vention_rail
+	url = https://github.com/NASA-JSC-Robotics/vention_rail.git
+	branch = humble-devel
 [submodule "src/external/surface_robotics_mockups_description"]
 	path = src/external/surface_robotics_mockups_description
 	url = https://github.com/NASA-JSC-Robotics/surface_robotics_mockups_description.git
@@ -33,10 +38,6 @@
 [submodule "src/external/merlin_mockup_description"]
 	path = src/external/merlin_mockup_description
 	url = https://github.com/NASA-JSC-Robotics/merlin_mockup_description.git
-	branch = humble-devel
-[submodule "src/clr_sim_demos"]
-	path = src/clr_sim_demos
-	url = https://github.com/NASA-JSC-Robotics/clr_sim_demos.git
 	branch = humble-devel
 [submodule "src/external/color_tools"]
 	path = src/external/color_tools
@@ -48,3 +49,8 @@
 [submodule "src/external/mujoco_ros2_control"]
 	path = src/external/mujoco_ros2_control
 	url = https://github.com/ros-controls/mujoco_ros2_control.git
+# VLA Related Packages
+[submodule "src/vla/Lerobot-Mujoco"]
+	path = src/vla/Lerobot-Mujoco
+	url = git@github.com:gmarchetti2020/Lerobot-MujoCo.git
+	branch = feature/clr-ws-integration
