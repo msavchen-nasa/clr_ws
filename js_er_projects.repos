@@ -1,0 +1,25 @@
+repositories:
+  data:
+    type: git
+    url: git@js-er-code.jsc.nasa.gov:msavchen/plotjuggler_utils.git
+    version: main
+  infra/drt_behavior:
+    type: git
+    url: git@js-er-code.jsc.nasa.gov:vs/sandbox/drt_behavior.git
+    version: humble-feature/extensibility-test
+  infra/drt_rviz2_panels:
+    type: git
+    url: git@js-er-code.jsc.nasa.gov:vs/sandbox/drt_rviz2_panels.git
+    version: humble-devel
+  vla/agent_interface:
+    type: git
+    url: git@js-er-code.jsc.nasa.gov:drt/vla/agent_interface.git
+    version: humble-feature/gather-planning-data
+  vla/moveit2_servo_fork:
+    type: git
+    url: git@js-er-code.jsc.nasa.gov:drt/vla/moveit2_servo_fork.git
+    version: humble-feature/moveit-servo-displacment-command
+  vla/plotjuggler_utils:
+    type: git
+    url: git@js-er-code.jsc.nasa.gov:msavchen/plotjuggler_utils.git
+    version: main
