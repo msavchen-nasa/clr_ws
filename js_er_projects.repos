@@ -1,8 +1,4 @@
 repositories:
-  data:
-    type: git
-    url: git@js-er-code.jsc.nasa.gov:msavchen/plotjuggler_utils.git
-    version: main
   infra/drt_behavior:
     type: git
     url: git@js-er-code.jsc.nasa.gov:vs/sandbox/drt_behavior.git
