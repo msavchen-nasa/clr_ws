@@ -54,3 +54,8 @@
 	path = src/vla/Lerobot-Mujoco
 	url = git@github.com:gmarchetti2020/Lerobot-MujoCo.git
 	branch = feature/clr-ws-integration
+# infrastructure related packages
+[submodule "src/infra/BehaviorTree.CPP"]
+	path = src/infra/BehaviorTree.CPP
+	url = git@github.com:BehaviorTree/BehaviorTree.CPP.git
+	branch = 4.9.0
