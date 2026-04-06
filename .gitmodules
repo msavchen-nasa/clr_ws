@@ -1,7 +1,7 @@
 [submodule "src/chonkur_l_raile"]
 	path = src/chonkur_l_raile
-	url = https://github.com/NASA-JSC-Robotics/chonkur_l_raile.git
-	branch = humble-devel
+	url = https://github.com/msavchen-nasa/chonkur_l_raile.git
+	branch = humble-feature/vla-integration
 [submodule "src/clr_sim_demos"]
 	path = src/clr_sim_demos
 	url = https://github.com/NASA-JSC-Robotics/clr_sim_demos.git
@@ -52,7 +52,7 @@
 # VLA Related Packages
 [submodule "src/vla/Lerobot-Mujoco"]
 	path = src/vla/Lerobot-Mujoco
-	url = git@github.com:gmarchetti2020/Lerobot-MujoCo.git
+	url = https://github.com/gmarchetti2020/Lerobot-MujoCo.git
 	branch = feature/clr-ws-integration
 # infrastructure related packages
 [submodule "src/infra/BehaviorTree.CPP"]
