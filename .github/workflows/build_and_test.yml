@@ -24,40 +24,94 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  REPOSITORY_NAME: ${{ github.event.repository.name }}
-  TAG: ${{ github.head_ref || github.ref_name }}
-
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
-      - name: Print info
-        run: |
-          echo "REPOSITORY_NAME: ${{ env.REPOSITORY_NAME }}"
-          echo "TAG: ${{ env.TAG }}"
       # NOTE: This will not work for non-public submodules. Use a token and config substitution instead.
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
+          flavor: |
+            latest=false
+      # TODO: Use GHCR or Dockerhub to push images once these are public
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          tags: ${{ steps.meta.outputs.tags }}
+          target: er4-dev-source
+          push: false
+          load: true
+          cache-from: type=gha,scope=ros-${{ github.event.repository.name }}
+          cache-to: type=gha,mode=max,scope=ros-${{ github.event.repository.name }}
+      # Skip packages we don't really care about.
+      # Additionally, functional tests require LFS cloning, so are only run at scheduled times
+      # to save on bandwidth consumption.
+      - name: Run tests
+        run: |
+          docker run --rm \
+            ${{ steps.meta.outputs.tags }} \
+            bash -c "
+              colcon test --packages-skip \
+                mujoco_ros2_control \
+                mujoco_ros2_control_tests \
+                robotiq_driver \
+                serial \
+                clr_functional_tests &&
+              colcon test-result --verbose
+            "
+
+  pixi_jazzy_build_and_test:
+    env:
+      CCACHE_DIR: ${{ github.workspace }}/.ccache
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
         with:
           submodules: recursive
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      # TODO: Use GHCR or Dockerhub to push images once these are public
-      - name: Build and push
-        uses: docker/build-push-action@v5
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
         with:
           context: .
-          file: Dockerfile
-          tags: ${{ env.REPOSITORY_NAME }}:${{ env.TAG }}
-          target: er4-dev-source
+          file: docker/Dockerfile.pixi
           push: false
           load: true
-      - name: Run tests
+          tags: ${{ github.event.repository.name }}_pixi:ci
+          cache-from: type=gha,scope=pixi-${{ github.event.repository.name }}
+          cache-to: type=gha,mode=max,scope=pixi-${{ github.event.repository.name }}
+      - name: Cache ccache
+        uses: actions/cache@v5
+        with:
+          path: |
+            ${{ env.CCACHE_DIR }}
+          key: ${{ runner.os }}-ccache-${{ github.head_ref || github.ref_name }}
+          restore-keys: |
+            ${{ runner.os }}-ccache-main
+            ${{ runner.os }}-ccache-
+      # Run pixi jobs, and ensure the cache is world readable.
+      - name: Build and test in container
         run: |
           docker run --rm \
-            ${{ env.REPOSITORY_NAME }}:${{ env.TAG }} \
+            -v ${{ github.workspace }}:/workspace \
+            -v ${{ github.workspace }}/.ccache:/workspace/.ccache \
+            -w /workspace \
+            -e CCACHE_DIR=/workspace/.ccache \
+            ${{ github.event.repository.name }}_pixi:ci \
             bash -c "
-              colcon test &&
-              colcon test-result --verbose
+              pixi run setup-colcon && \
+              pixi run build && \
+              chmod -R a+rwX /workspace/.ccache
             "

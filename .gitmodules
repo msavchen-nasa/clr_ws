@@ -35,9 +35,9 @@
 	path = src/external/surface_robotics_mockups_description
 	url = https://github.com/NASA-JSC-Robotics/surface_robotics_mockups_description.git
 	branch = humble-devel
-[submodule "src/external/merlin_mockup_description"]
-	path = src/external/merlin_mockup_description
-	url = https://github.com/NASA-JSC-Robotics/merlin_mockup_description.git
+[submodule "src/clr_sim_demos"]
+	path = src/clr_sim_demos
+	url = https://github.com/NASA-JSC-Robotics/clr_sim_demos.git
 	branch = humble-devel
 [submodule "src/external/color_tools"]
 	path = src/external/color_tools
@@ -57,7 +57,7 @@
 # infrastructure related packages
 [submodule "src/infra/BehaviorTree.CPP"]
 	path = src/infra/BehaviorTree.CPP
-	url = git@github.com:BehaviorTree/BehaviorTree.CPP.git
+	url = https://github.com/BehaviorTree/BehaviorTree.CPP.git
 	branch = 4.9.0
 [submodule "src/infra/BehaviorTree.ROS2"]
 	path = src/infra/BehaviorTree.ROS2

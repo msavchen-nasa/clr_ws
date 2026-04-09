@@ -1,5 +1,5 @@
 # Set desired ROS distribution
-ARG ROS_DISTRO=humble
+ARG ROS_DISTRO=jazzy
 
 # This layer grabs package manifests from the src directory for preserving rosdep installs.
 # This can significantly speed up rebuilds for the base package when src contents have changed.
@@ -28,6 +28,12 @@ ENV ER4_WS="/home/er4-user/ws"
 
 # DEBIAN_FRONTEND is set as an ARG instead of ENV variable so it doesn't persist in the image after build
 ARG DEBIAN_FRONTEND=noninteractive
+
+# As of 24.04, many Ubuntu modules will check for FIPS kernels and adjust packages accordingly. This
+# can break in the container, which shares a kernel but does not have FIPS packages installed. So
+# in the running image we ensure that SSL at does not cause problems when downloading or making
+# secure connections during the build.
+ENV OPENSSL_FORCE_FIPS_MODE=0
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -69,24 +75,11 @@ RUN groupadd -g ${USER_GID} ${USERNAME} \
         ${ER4_WS}/log && \
     chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
 
-# Configure and install MuJoCo using the defaults for the MuJoCo drivers.
-# We use MuJoCo in many systems so we just install the drivers in the base workspace.
-# The install is CPU dependent, this works with `x86_64` and `arm64` chips, TBD on others.
-ARG MUJOCO_VERSION=3.4.0
-ENV MUJOCO_VERSION=${MUJOCO_VERSION}
-ENV MUJOCO_DIR="/opt/mujoco/mujoco-${MUJOCO_VERSION}"
-RUN mkdir -p ${MUJOCO_DIR} && \
-    chown -R ${USERNAME}:${USERNAME} ${MUJOCO_DIR} && \
-    CPU_ARCH=$(uname -m); \
-    wget https://github.com/google-deepmind/mujoco/releases/download/${MUJOCO_VERSION}/mujoco-${MUJOCO_VERSION}-linux-${CPU_ARCH}.tar.gz && \
-    tar -xzf "mujoco-${MUJOCO_VERSION}-linux-${CPU_ARCH}.tar.gz" -C $(dirname "${MUJOCO_DIR}") && \
-    rm "mujoco-${MUJOCO_VERSION}-linux-${CPU_ARCH}.tar.gz"
-
-# Install MuJoCo specific pip dependencies at the system level because it's an image
+# Install nanobind from pip rather than rosdep, and include additional deps for the mujoco conversion process.
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    pip3 install mujoco obj2mjcf trimesh
+    pip3 install nanobind mujoco==3.4.0 obj2mjcf trimesh pycollada
 
 # Setup the install directory and copy the workspace to it.
 # We could alternatively copy package manifests to preserve the layer cache if the build duration becomes too onerous.
@@ -115,13 +108,6 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
     ros-${ROS_DISTRO}-rmw-fastrtps-cpp \
     ros-${ROS_DISTRO}-plotjuggler-ros
-
-# Install MuJoCo conversion tool specific pip dependencies.
-# this is duplicative but I'd rather not deal with the venvs inside of environments
-# that are 100% under our control.
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    pip install mujoco obj2mjcf trimesh pycollada
 
 # Copy in the remainder of the src directory
 COPY --chown=${USERNAME}:${USERNAME} src/ src/
