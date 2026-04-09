@@ -4,9 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: er4-vla-dev
+      target: er4-dev
       tags:
-        - er4-vla-dev:${ROS2_DISTRO:-jazzy}
+        - er4-dev:${ROS2_DISTRO:-jazzy}
       args:
         # WARNING: Changing username requires updating workspace mounts below.
         # Do not mess with these unless you know what you are doing!
