@@ -71,3 +71,7 @@
 	path = src/infra/drt_rviz2_panels
 	url = git@js-er-code.jsc.nasa.gov:vs/sandbox/drt_rviz2_panels.git
   	branch = jazzy-devel
+[submodule "src/vla/agent_interface"]
+	path = src/vla/agent_interface
+	url = git@js-er-code.jsc.nasa.gov:drt/vla/agent_interface.git
+	branch = humble-feature/gather-planning-data
