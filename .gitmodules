@@ -66,7 +66,7 @@
 [submodule "src/infra/drt_behavior"]
 	path = src/infra/drt_behavior
 	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-utilities/drt_behavior.git
-  	branch = jazzy-feature/organization
+  	branch = jazzy-devel
 [submodule "src/infra/drt_rviz2_panels"]
 	path = src/infra/drt_rviz2_panels
 	url = git@js-er-code.jsc.nasa.gov:vs/sandbox/drt_rviz2_panels.git
