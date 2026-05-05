@@ -73,7 +73,7 @@
   	branch = jazzy-feature/cleanup
 [submodule "src/vla/agent_interface"]
 	path = src/vla/agent_interface
-	url = git@js-er-code.jsc.nasa.gov:drt/vla/agent_interface.git
+	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/agent_interface.git
 	branch = humble-feature/gather-planning-data
 [submodule "src/vla/mannequin"]
 	path = src/vla/mannequin
