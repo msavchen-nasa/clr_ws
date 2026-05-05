@@ -78,3 +78,7 @@
 [submodule "src/vla/mannequin"]
 	path = src/vla/mannequin
 	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/mannequin.git
+[submodule "src/vla/moveit2"]
+	path = src/vla/moveit2
+	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/moveit2.git
+	branch = jazzy-feature/move-servo-drt-rework
