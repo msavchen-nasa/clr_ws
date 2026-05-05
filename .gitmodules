@@ -82,3 +82,6 @@
 	path = src/vla/moveit2
 	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/moveit2.git
 	branch = jazzy-feature/move-servo-drt-rework
+[submodule "src/vla/plotjuggler_utils"]
+	path = src/vla/plotjuggler_utils
+	url = git@js-er-code.jsc.nasa.gov:msavchen/plotjuggler_utils.git
