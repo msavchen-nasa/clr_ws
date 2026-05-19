@@ -1,7 +1,7 @@
 [submodule "src/chonkur_l_raile"]
 	path = src/chonkur_l_raile
 	url = https://github.com/msavchen-nasa/chonkur_l_raile.git
-	branch = jazzy-feature/vla-integration
+	branch = origin/jazzy-feature/vla-integration-backup
 [submodule "src/clr_sim_demos"]
 	path = src/clr_sim_demos
 	url = https://github.com/NASA-JSC-Robotics/clr_sim_demos.git
@@ -74,7 +74,7 @@
 [submodule "src/vla/agent_interface"]
 	path = src/vla/agent_interface
 	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/agent_interface.git
-	branch = humble-feature/gather-planning-data
+	branch = humble-feature/inference-deployment
 [submodule "src/vla/mannequin"]
 	path = src/vla/mannequin
 	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/mannequin.git
