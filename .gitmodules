@@ -1,12 +1,7 @@
 [submodule "src/chonkur_l_raile"]
-	path = src/chonkur_l_raile
+	path = src/external/chonkur_l_raile
 	url = https://github.com/msavchen-nasa/chonkur_l_raile.git
 	branch = origin/jazzy-feature/vla-integration-backup
-[submodule "src/clr_sim_demos"]
-	path = src/clr_sim_demos
-	url = https://github.com/NASA-JSC-Robotics/clr_sim_demos.git
-	branch = humble-devel
-# External Packages
 [submodule "src/dextivr_hande"]
 	path = src/external/dextivr_hande
 	url = https://github.com/NASA-JSC-Robotics/dextivr_hande.git
@@ -35,10 +30,6 @@
 	path = src/external/surface_robotics_mockups_description
 	url = https://github.com/NASA-JSC-Robotics/surface_robotics_mockups_description.git
 	branch = humble-devel
-[submodule "src/clr_sim_demos"]
-	path = src/clr_sim_demos
-	url = https://github.com/NASA-JSC-Robotics/clr_sim_demos.git
-	branch = humble-devel
 [submodule "src/external/color_tools"]
 	path = src/external/color_tools
 	url = https://github.com/NASA-JSC-Robotics/color_tools.git
@@ -55,22 +46,6 @@
 	url = git@github.com:gmarchetti2020/Lerobot-MujoCo.git
 	branch = feature/clr-ws-integration
 # infrastructure related packages
-[submodule "src/infra/BehaviorTree.CPP"]
-	path = src/infra/BehaviorTree.CPP
-	url = https://github.com/BehaviorTree/BehaviorTree.CPP.git
-	branch = 4.9.0
-[submodule "src/infra/BehaviorTree.ROS2"]
-	path = src/infra/BehaviorTree.ROS2
-	url = https://github.com/BehaviorTree/BehaviorTree.ROS2.git
-	branch = 0.3.0
-[submodule "src/infra/drt_behavior"]
-	path = src/infra/drt_behavior
-	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-utilities/drt_behavior.git
-  	branch = jazzy-feature/ompl-behavior
-[submodule "src/infra/drt_rviz2_panels"]
-	path = src/infra/drt_rviz2_panels
-	url = git@js-er-code.jsc.nasa.gov:vs/sandbox/drt_rviz2_panels.git
-  	branch = jazzy-feature/cleanup
 [submodule "src/vla/agent_interface"]
 	path = src/vla/agent_interface
 	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/agent_interface.git
@@ -85,3 +60,7 @@
 [submodule "src/vla/plotjuggler_utils"]
 	path = src/vla/plotjuggler_utils
 	url = git@js-er-code.jsc.nasa.gov:msavchen/plotjuggler_utils.git
+[submodule "src/external/drt_behavior"]
+	path = src/external/drt_behavior
+	url = https://github.com/NASA-JSC-Robotics/drt_behavior.git
+	branch = jazzy-devel
