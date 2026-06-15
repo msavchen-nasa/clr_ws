@@ -67,3 +67,6 @@
 [submodule "external/roboplan-ros"]
 	path = src/external/roboplan-ros
 	url = https://github.com/open-planning/roboplan-ros.git
+[submodule "src/vla/drt_moveit_servo"]
+	path = src/vla/drt_moveit_servo
+	url = git@js-er-code.jsc.nasa.gov:msavchen/drt_moveit_servo.git
