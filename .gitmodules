@@ -1,7 +1,7 @@
 [submodule "src/chonkur_l_raile"]
 	path = src/external/chonkur_l_raile
 	url = https://github.com/msavchen-nasa/chonkur_l_raile.git
-	branch = origin/jazzy-feature/vla-integration-backup
+	branch = jazzy-feature/vla-nasa-integration
 [submodule "src/dextivr_hande"]
 	path = src/external/dextivr_hande
 	url = https://github.com/NASA-JSC-Robotics/dextivr_hande.git
