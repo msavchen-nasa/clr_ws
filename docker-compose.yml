@@ -110,11 +110,15 @@ services:
     command: sleep infinity
     profiles: [ hw-dev ]
 
-  vla_dev:
+  vla-dev:
     extends: dev
     volumes:
       # The controller machine requires access to some devices for hardware comms.
       # Including, but not necessarily limited to the Hand-E gripper and Lift.
       # TODO: Mount specific devices by name conventions, rather than all of /dev
       - /dev:/dev
+    command: sleep infinity
+
+  vla-hw-dev:
+    extends: hw-dev
     command: sleep infinity
