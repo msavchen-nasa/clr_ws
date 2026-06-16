@@ -43,7 +43,7 @@
 # VLA Related Packages
 [submodule "src/vla/Lerobot-Mujoco"]
 	path = src/vla/Lerobot-Mujoco
-	url = git@github.com:gmarchetti2020/Lerobot-MujoCo.git
+	url = https://github.com/gmarchetti2020/Lerobot-MujoCo.git
 	branch = feature/clr-ws-integration
 # infrastructure related packages
 [submodule "src/vla/agent_interface"]
