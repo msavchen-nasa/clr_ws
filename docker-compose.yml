@@ -122,3 +122,12 @@ services:
   vla-hw-dev:
     extends: hw-dev
     command: sleep infinity
+  # CMO-DA Electron App Service
+  cmoda-dev:
+    extends: _base
+    build: 
+      target: er4-cmoda-dev
+    volumes:
+      - ./cmoda:/home/er4-user/cmoda/:rw
+      - /dev:/dev
+    command: sleep infinity
