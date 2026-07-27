@@ -169,6 +169,82 @@ RUN OLD_UID=$(id -u ${USERNAME}) && \
 
 USER ${USERNAME}
 
+FROM ros:${ROS_DISTRO} AS er4-cmoda-dev
+
+# "Building Image for CMO-DA"
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Overridable non root user information.
+ARG USER_UID=1000
+ARG USER_GID=1000
+ARG USERNAME=er4-user
+
+# Define the install location for the developing application
+ENV CMODA_WS="/home/er4-user"
+
+# DEBIAN_FRONTEND is set as an ARG instead of ENV variable so it doesn't persist in the image after build
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && \
+    apt-get install -q -y \
+    bash-completion \
+    ccache \
+    gdb \
+    gdbserver \
+    git \
+    less \
+    python3-pip \
+    python3-rosdep \
+    software-properties-common \
+    terminator \
+    tmux \
+    vim \
+    xterm \
+    wget \
+    npm \ 
+    libnspr4 \
+    libasound2t64 \
+    libnss3 \
+    unzip 
+
+    # ros2 launch rosbridge_server rosbridge_websocket.launch.py
+
+# Add a non-root user with provided user details. Some images have a default `ubuntu` user, so we remove it before adding the
+# new one.
+RUN userdel -r ubuntu 2>/dev/null || true
+RUN groupadd -g ${USER_GID} ${USERNAME} \
+    && useradd -l -u ${USER_UID} -g ${USER_GID} --create-home -m -s /bin/bash -G sudo,adm,dialout,dip,plugdev,video ${USERNAME} \
+    && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    mkdir -p ${CMODA_WS}/cmoda && \
+    chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
+
+# Setup the install directory and copy the workspace to it.
+# We could alternatively copy package manifests to preserve the layer cache if the build duration becomes too onerous.
+USER ${USERNAME}
+WORKDIR ${CMODA_WS}
+
+ENV NVM_DIR /home/${USERNAME}/.nvm
+
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.6/install.sh | bash \
+    && . $NVM_DIR/nvm.sh \
+    && nvm install 22
+
+# Copy in the remainder of the src directory
+COPY --chown=${USERNAME}:${USERNAME} cmoda/ cmoda/
+RUN unzip ${CMODA_WS}/cmoda/cmoda_config.zip -d ${CMODA_WS}/.config/
+
+# copy in configs for different features
+COPY --chown=${USERNAME}:${USERNAME} config/terminator_config /home/${USERNAME}/.config/terminator/config
+
+# Make it obvious when operating in a container
+RUN echo "PS1=\"${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\](docker):\[\033[01;34m\]\w\[\033[00m\]\$ \"" >> ~/.bashrc
+WORKDIR ${CMODA_WS}/cmoda/cmoda-electron-main
+# Setup entrypoint and ensure it's added to ~/.bashrc
+COPY scripts/entrypoint_cmoda.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
 
 FROM er4-dev AS er4-vla-dev
 
