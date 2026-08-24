@@ -133,4 +133,4 @@ services:
       - /dev:/dev
     stdin_open: true
     tty: true
-    command: ["uvx", "ros-mcp", "--transport=stdio"]
+    command: ["uvx", "ros-mcp", "--transport=streamable-http", "--host=0.0.0.0"]
