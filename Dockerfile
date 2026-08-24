@@ -203,11 +203,11 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     vim \
     xterm \
     wget \
-    npm \ 
+    npm \
     libnspr4 \
     libasound2t64 \
     libnss3 \
-    unzip 
+    unzip
 
     # ros2 launch rosbridge_server rosbridge_websocket.launch.py
 
