@@ -231,20 +231,18 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.6/install.sh | b
     && . $NVM_DIR/nvm.sh \
     && nvm install 22
 
-# Copy in the remainder of the src directory
-COPY --chown=${USERNAME}:${USERNAME} cmoda/ cmoda/
-RUN unzip ${CMODA_WS}/cmoda/cmoda_config.zip -d ${CMODA_WS}/.config/
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
+    && echo ". $HOME/.local/bin/env" >> ~/.bashrc
+
+ENV PATH="${CMODA_WS}/.local/bin/:$PATH"
 
 # copy in configs for different features
 COPY --chown=${USERNAME}:${USERNAME} config/terminator_config /home/${USERNAME}/.config/terminator/config
 
 # Make it obvious when operating in a container
 RUN echo "PS1=\"${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\](docker):\[\033[01;34m\]\w\[\033[00m\]\$ \"" >> ~/.bashrc
-WORKDIR ${CMODA_WS}/cmoda/cmoda-electron-main
-# Setup entrypoint and ensure it's added to ~/.bashrc
-COPY scripts/entrypoint_cmoda.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
 
+WORKDIR ${CMODA_WS}/cmoda/ros-mcp-server
 
 FROM er4-dev AS er4-vla-dev
 
