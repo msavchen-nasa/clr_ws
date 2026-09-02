@@ -70,9 +70,6 @@
 [submodule "src/vla/agent_interface_visualization"]
 	path = src/vla/agent_interface_visualization
 	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/agent_interface_visualization.git
-[submodule "src/vla/ros-mcp-server"]
-	path = src/vla/ros-mcp-server
-	url = https://github.com/robotmcp/ros-mcp-server.git
 [submodule "src/vla/ros2_yolos_cpp"]
 	path = src/vla/ros2_yolos_cpp
 	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/ros2_yolos_cpp.git
