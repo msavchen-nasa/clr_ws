@@ -133,4 +133,6 @@ services:
       - /dev:/dev
     stdin_open: true
     tty: true
-    command: ["uvx", "ros-mcp", "--transport=streamable-http", "--host=0.0.0.0"]
+    command: ["uv", "run", "ros-mcp", "--transport", "streamable-http", "--host", "0.0.0.0", "--port", "9000"]
+    # command: sleep infinity
+    # command: ["uvx", "ros-mcp", "--transport=streamable-http", "--host=0.0.0.0"]
