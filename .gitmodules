@@ -74,3 +74,7 @@
 	path = src/vla/ros2_yolos_cpp
 	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/ros2_yolos_cpp.git
 	branch = nasa-main
+[submodule "cmoda/ros-mcp-server"]
+	path = cmoda/ros-mcp-server
+	url = git@js-er-code.jsc.nasa.gov:imetro/imetro-robot-applications/vla/ros-mcp-server.git
+	branch = msavchen/cmoda-clr-demo
