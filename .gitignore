@@ -21,3 +21,4 @@ log/*
 
 # cmoda
 cmoda/*
+!cmoda/ros-mcp-server
