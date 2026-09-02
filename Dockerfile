@@ -243,7 +243,9 @@ COPY --chown=${USERNAME}:${USERNAME} config/terminator_config /home/${USERNAME}/
 # Make it obvious when operating in a container
 RUN echo "PS1=\"${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\](docker):\[\033[01;34m\]\w\[\033[00m\]\$ \"" >> ~/.bashrc
 
+COPY --chown=${USERNAME}:${USERNAME} cmoda/ros-mcp-server ${CMODA_WS}/cmoda/ros-mcp-server
 WORKDIR ${CMODA_WS}/cmoda/ros-mcp-server
+RUN uv sync
 
 FROM er4-dev AS er4-vla-dev
 
